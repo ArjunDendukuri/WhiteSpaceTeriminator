@@ -1,7 +1,6 @@
 import java.awt.image.BufferedImage
 import java.awt.image.RasterFormatException
 import java.io.File
-import java.util.function.BiPredicate
 import javax.imageio.ImageIO
 
 
@@ -11,8 +10,6 @@ const val questions = "questions/"
 const val topThreshold: Int = 20
 const val bottomThreshold: Int = 20
 
-val subjectCodeCheck: BiPredicate<Int, Int> = BiPredicate{ y, height -> y/height > 0.90 }
-
 fun main() {
     prime()
 }
@@ -20,7 +17,7 @@ fun main() {
 fun prime() {
     val qDir = Thread.currentThread().contextClassLoader.getResource(questions)
     File(qDir?.toURI()).listFiles()?.forEach { file ->
-        val imgs: List<BufferedImage>?;
+        val imgs: List<BufferedImage>?
 
         if (file.extension == "png") {
             imgs = fixed(ImageIO.read(file))
@@ -65,7 +62,7 @@ fun fixed(brokenPg: BufferedImage): MutableList<BufferedImage> {
         if (isColouredRow) {
             lastColouredRow = y
             if (isWhite) { // this checks if the last few lines have been devoid of any content
-                colouredTop = y;
+                colouredTop = y
                 isWhite = false
             }
 
@@ -105,7 +102,7 @@ fun fiximg(img: BufferedImage): BufferedImage {
 }
 
 fun rowHasColour(img: BufferedImage, row: Int): Boolean {
-    return img.getRGB(0, row, img.width, 1, null, 0, img.width).distinct().size >= 2;
+    return img.getRGB(0, row, img.width, 1, null, 0, img.width).distinct().size >= 2
 }
 
 
