@@ -4,19 +4,18 @@ import java.io.File
 import javax.imageio.ImageIO
 
 
-const val finished = "C:\\Users\\perpe\\IdeaProjects\\WhiteSpacer\\out"
-const val questions = "questions/"
+var finished = """C:\Users\perpe\Arjun\yaar"""
+var questions = "C:\\Users\\perpe\\Arjun\\Codey\\Python\\practice_p_maker\\saves\\0606\\March 2019\\Paper 1\\Variant 2\\questions"
 
 const val topThreshold: Int = 20
 const val bottomThreshold: Int = 20
 
 fun main() {
-    prime()
+    go(addMath)
 }
 
 fun prime() {
-    val qDir = Thread.currentThread().contextClassLoader.getResource(questions)
-    File(qDir?.toURI()).listFiles()?.forEach { file ->
+    File(questions).listFiles()?.forEach { file ->
         val imgs: List<BufferedImage>?
 
         if (file.extension == "png") {
@@ -42,6 +41,7 @@ fun prime() {
         }
 
         g2.dispose()
+        File(finished).mkdirs()
         ImageIO.write(joinedImg,"png",File("$finished\\${file.name}")) //todo merging array of screenshots
     }
 
